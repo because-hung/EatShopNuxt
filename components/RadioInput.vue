@@ -1,12 +1,15 @@
 <template>
-<div class="tasteCom">
-    <ul  v-for="(item, i) in sauce" :key="i">
-          <li>
-            <input type="radio" name="taste" :value="item" @change="changeValue(item)">
-            {{item}}
-            </li>
-        </ul>
-</div>
+  <div class="tasteCom">
+    <ul
+      v-for="(item, i) in sauce"
+      :key="i"
+    >
+      <li>
+        <input type="radio" name="taste" :value="item" @change="changeValue(item)">
+        {{ item }}
+      </li>
+    </ul>
+  </div>
 </template>
 <script>
 export default {
@@ -29,7 +32,6 @@ export default {
 </script>
 <style lang="scss">
 .tasteCom{
-  display: flex;
-  justify-content: center;
+@include center;
 }
 </style>

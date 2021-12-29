@@ -1,10 +1,13 @@
 <template>
-<div>
-     <div class="txt center">
-        <h3>備註特殊需求</h3>
-        <input type="text" v-model.trim="txt">
-      </div>
-</div>
+  <div>
+    <div class="txt center">
+      <h3>備註特殊需求</h3>
+      <input
+        v-model.trim="txt"
+        type="text"
+      >
+    </div>
+  </div>
 </template>
 <script>
 export default {
@@ -22,8 +25,11 @@ export default {
   }
 }
 </script>
-<style>
-h3{
-  margin-right: 8px;
+<style lang="scss">
+.txt{
+  margin-top: 10px;
+  h3{
+    margin-right: 8px;
+  }
 }
 </style>

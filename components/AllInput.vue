@@ -1,13 +1,14 @@
 <template>
-<div>
-   <component :is="type" @changeValue="changeValue"></component>
-</div>
+  <div>
+    <component :is="type" @changeValue="changeValue" />
+  </div>
 </template>
 <script>
 export default {
   props: {
     type: {
-      type: String
+      type: String,
+      default: ''
     }
   },
   methods: {

@@ -214,6 +214,7 @@ export default {
   margin: 0 auto;
   background-image: url(@/assets/Background06.jpg);
   background-size: cover;
+  padding-bottom: 30px;
 }
 .product{
    padding-top: 3px;
@@ -292,6 +293,8 @@ li{
 @include center;
   flex-direction: column;
   align-items: center;
+  font-weight: 700;
+  font-size: 24px;
   ul{
     margin-left: 50px;
   }

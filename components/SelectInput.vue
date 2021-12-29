@@ -1,17 +1,24 @@
 <template>
-    <div>
-         <div class="spicyTaste center">
-             <h3 class="title">辣度:</h3>
-        <select
+  <div>
+    <div class="spicyTaste center">
+      <h3 class="title">
+        辣度:
+      </h3>
+      <select
         name="spicy"
         class="spicyInput"
-        @change="changeValue($event)">
-          <option v-for="(item, i) in spicy"
-        :key="i"
-         :value="item">{{item}}</option>
-        </select>
-        </div>
+        @change="changeValue($event)"
+      >
+        <option
+          v-for="(item, i) in spicy"
+          :key="i"
+          :value="item"
+        >
+          {{ item }}
+        </option>
+      </select>
     </div>
+  </div>
 </template>
 <script>
 export default {
@@ -28,8 +35,11 @@ export default {
 }
 
 </script>
-<style>
-h3{
-  margin-right: 8px;
+<style lang="scss">
+.spicyTaste{
+  margin-top: 10px;
+  h3{
+    margin-right: 8px;
+  }
 }
 </style>

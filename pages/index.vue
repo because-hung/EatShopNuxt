@@ -25,6 +25,18 @@
 <script>
 export default {
   name: 'IndexPage',
+  head () {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Home page description'
+        }
+      ]
+    }
+  },
   created () {
     this.getColor()
   },
