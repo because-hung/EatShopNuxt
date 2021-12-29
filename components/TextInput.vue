@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="txt center">
-      <h3>備註特殊需求</h3>
+      <h3>特殊需求</h3>
       <input
         v-model.trim="txt"
         type="text"

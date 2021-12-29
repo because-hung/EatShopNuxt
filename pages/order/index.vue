@@ -41,7 +41,7 @@
           辣度
         </button>
         <button class="btn" @click="changeType('TextInput')">
-          備註特殊要求
+          備註
         </button>
       </div>
       <AllInput
@@ -97,6 +97,7 @@
 <script>
 
 export default {
+  name: 'OrderPage',
   data () {
     return {
       data: [],
@@ -133,6 +134,18 @@ export default {
           price: 60,
           num: 0,
           img: require('@/assets/product04.jpg')
+        }
+      ]
+    }
+  },
+  head () {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'eat order description'
         }
       ]
     }
@@ -210,7 +223,7 @@ export default {
   background-color: $bgColorTwo;
 }
 .container{
-  width: 1440px;
+  max-width: 1440px;
   margin: 0 auto;
   background-image: url(@/assets/Background06.jpg);
   background-size: cover;
@@ -226,6 +239,12 @@ export default {
   gap: 20px;
   background-image: url(@/assets/background03.jpg);
   border: 2px solid palevioletred;
+  @include pad{
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include phone{
+    grid-template-columns: repeat(1, 1fr);
+  }
   ul{
     padding: 20px;
     margin: 20px;
@@ -263,6 +282,10 @@ export default {
 li{
   list-style-type: none;
 }
+.InputComponet{
+  background: lightcoral;
+  padding: 15px;
+}
 .btn-group{
 @include center;
   .btn{
@@ -270,6 +293,9 @@ li{
     width: 150px;
     height: 50px;
     border-radius: 100px;
+  }
+  @include phone{
+    grid-template-columns: repeat(2, 2fr);
   }
 }
 .orderList{
@@ -288,15 +314,30 @@ li{
     text-align: right;
     margin-top: 30px;
   }
+  @include pad{
+  flex-direction: column;
+  align-items: center;
+  }
+  @include pad{
+    margin: 0;
+    background-position:right;
+  }
 }
 .customer{
+  margin-left: 10px;
+  margin-right: 10px;
 @include center;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   font-weight: 700;
   font-size: 24px;
   ul{
-    margin-left: 50px;
+    @include pad{
+  background: lightcoral;
+      padding-left: 0px;
+      padding: 8px;
+  }
   }
 }
 .info{
@@ -312,6 +353,10 @@ li{
         margin-left: 5px;
       }
     }
+  }
+  @include pad{
+  align-self: start;
+  margin-left: 25%;
   }
 }
 </style>

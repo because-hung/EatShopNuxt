@@ -11,3 +11,15 @@ $bgColorTwo: #0cc;
   background-size: cover;
   background-position: center;
 }
+
+@mixin pad {
+  @media(max-width:768px){
+    @content;
+  }
+}
+
+@mixin phone {
+  @media(max-width:414px){
+    @content;
+  }
+}

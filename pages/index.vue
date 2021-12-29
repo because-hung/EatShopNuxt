@@ -59,12 +59,20 @@ export default {
 .containerIndex{
   margin-left: 15%;
   margin-right: 15%;
+  @include pad{
+  margin-left: 10%;
+  margin-right: 10%;
+  }
 }
+
 .banner{
   z-index: 0;
   background-image: url(@/assets/index02.jpg);
   @include ImgCoverCenter;
-  height: 500px;
+    height: 500px;
+  @include phone{
+    height: 350px;
+  }
 }
 .page{
   position: relative;
@@ -72,10 +80,14 @@ export default {
   top: -30px;
   background-image: url(@/assets/index04.jpg);
   @include ImgCoverCenter;
-  margin-left: 3%;
-  margin-right: 3%;
-  height: 500px;
-  border-radius: 50px;
+    margin-left: 3%;
+    margin-right: 3%;
+    max-height: 500px;
+    border-radius: 50px;
+  @include phone{
+    margin-left: 0;
+    margin-right: 0;
+  }
   }
   .font{
     color:white;
@@ -89,9 +101,22 @@ export default {
     color: red;
     background: white;
     padding: 8px;
+    @include pad{
+      font-size: 40px;
+  }
+    @include phone{
+      margin-top: 20px;
+      font-size: 24px
+  }
   }
   .description{
-    font-size: 36px;
+      font-size: 36px;
+    @include pad{
+      font-size: 24px;
+  }
+    @include phone{
+      font-size: 18px
+  }
   }
 }
 .link{
@@ -100,5 +125,12 @@ export default {
   justify-content: end;
   color:yellow;
   margin-right: 14%;
+  padding-bottom: 3%;
+  @include phone{
+    font-size: 18px;
+    justify-content: center;
+    margin-right: 0;
+    padding-bottom: 5%;
+  }
 }
 </style>

@@ -33,5 +33,9 @@ export default {
 <style lang="scss">
 .tasteCom{
 @include center;
+@include phone{
+  justify-content: start;
+    flex-wrap: wrap;
+  }
 }
 </style>
