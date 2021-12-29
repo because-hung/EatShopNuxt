@@ -1,69 +1,96 @@
 <template>
-  <div class="container">
+  <div class="container order-border">
     <div class="product">
-    <h2 class="title center">主餐</h2>
-    <div class="productCard">
-     <ul v-for="(item, i) in food"
-     :key="i"
-     class="food">
-      <img :src="item.img" alt="" class="productImg">
-       <li class="product-title">{{item.name}}</li>
-       <div class="price">
-        <li>price: <span class="strong"> {{item.price}}</span></li>
-        <li><span>數量: <input type="number" v-model="item.num" class="number"></span></li>
-    </div>
-     </ul>
-     </div>
-          </div>
-        <div class="sauce">
-        <h2 class="title center">口味</h2>
-        <ul class="taste">
-          <li v-for="(item, i) in sauce" :key="i" >
-            <input type="radio" name="taste" :value="item"  v-model="order.sauce">
-            {{item}}
+      <h2 class="title center">
+        主餐
+      </h2>
+      <div class="productCard">
+        <ul
+          v-for="(item, i) in food"
+          :key="i"
+          class="food"
+        >
+          <img :src="item.img" alt="" class="productImg">
+          <li class="product-title">
+            {{ item.name }}
+          </li>
+          <div class="price">
+            <li>price: <span class="strong"> {{ item.price }}</span></li>
+            <li>
+              <span>數量:
+                <input
+                  v-model="item.num"
+                  type="number"
+                  class="number"
+                >
+              </span>
             </li>
+          </div>
         </ul>
-      <div>
-        <div class="spicyTaste center">
-             <h2 class="title">辣度:</h2>
-        <select name="spicy" v-model="order.spicy" class="spicyInput">
-          <option>不辣</option>
-          <option>小辣</option>
-          <option>中辣</option>
-          <option>大辣</option>
-        </select>
+      </div>
+    </div>
+    <div class="taste">
+      <h2 class="title center">
+        口味
+      </h2>
+      <div class="btn-group center">
+        <button class="btn" @click="changeType('RadioInput')">
+          口味
+        </button>
+        <button class="btn" @click="changeType('SelectInput')">
+          辣度
+        </button>
+        <button class="btn" @click="changeType('TextInput')">
+          備註特殊要求
+        </button>
+      </div>
+      <AllInput
+        :type="type"
+        class="InputComponet"
+        @changeValue="changeValue"
+      />
+    </div>
+    <div class="orderList">
+      <div class="personal">
+        <h1>你的大名</h1>
+        <input
+          v-model="name"
+          type="text"
+        >
+        <h2>地址</h2>
+        <input
+          v-model="address"
+          type="text"
+        >
+        <div class="btn">
+          <button @click="getOrderNum">
+            送出
+          </button>
         </div>
       </div>
-        </div>
-     <div class="orderList">
-       <div class="personal">
-        <h1>你的大名</h1>
-        <input type="text" v-model="order.name">
-        <h2>地址</h2>
-        <input type="text" v-model="order.address">
-        <div class="btn">
-        <button @click="getRandom">送出</button>
-        </div>
-       </div>
-       <div class="info">
-          <List
-     :name="order.name"
-     :address="order.address"
-     :sauce="order.sauce"
-     :spicy="order.spicy"
-     :total="total"
-       ></List>
-    <!-- <h3>總共:{{total}}</h3> -->
+      <div class="info">
+        <h2 class="title">
+          你的訂購資訊
+        </h2>
+        <ul>
+          <li>姓名: <strong>{{ name }}</strong></li>
+          <li>地址: <strong> {{ address }} </strong></li>
+          <li>口味: <strong> {{ allValue }} </strong></li>
+          <h3>總共: <strong>{{ total }}</strong></h3>
+        </ul>
+      </div>
     </div>
-
-     </div>
-     <div class="customer">
-    <h2 class="title center">訂購名單</h2>
-     <ul v-for="(item, i) in deta"
-     :key="i">
-       <li>Name:{{item.name}} --- 居住地: {{item.city}}</li>
-     </ul>
-     </div>
+    <div class="customer">
+      <h2 class="title center">
+        訂購名單
+      </h2>
+      <ul
+        v-for="(item, i) in orderData"
+        :key="i"
+      >
+        <li>Name:{{ item.name }} --- 居住地: {{ item.city }} <span v-if="item.num">--- 訂單編號: {{ item.num }}</span></li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -73,15 +100,15 @@ export default {
   data () {
     return {
       data: [],
-      deta: [],
-      order: [{
-        name: '',
-        address: '',
-        product: '',
-        sauce: '',
-        spicy: '',
-        num: 0
-      }],
+      orderData: [],
+      allValue: '',
+      value1: '',
+      value2: '',
+      value3: '',
+      name: '',
+      address: '',
+      orderNum: 1,
+      type: 'radioType',
       food: [
         {
           name: '薯條',
@@ -107,34 +134,7 @@ export default {
           num: 0,
           img: require('@/assets/product04.jpg')
         }
-      ],
-      sauce: [
-        '梅粉',
-        '九層塔',
-        '番茄醬',
-        '胡椒'
       ]
-    }
-  },
-  methods: {
-    async getData () {
-      try {
-        const res = await this.$axios.get(
-          'https://mocki.io/v1/40e08d2b-6fc1-43e2-bbcf-eb5a09115f06'
-        )
-        console.log(res)
-        this.data = res.data
-        this.deta = [...this.data]
-        console.log(this.data)
-      } catch (error) {
-        console.log('error: ', error)
-      }
-    },
-    getRandom () {
-      this.deta.push({
-        name: this.order.name,
-        city: this.order.address
-      })
     }
   },
   computed: {
@@ -150,12 +150,64 @@ export default {
   },
   created () {
     this.getData()
+    this.getColor()
+  },
+  methods: {
+    async getData () {
+      try {
+        const res = await this.$axios.get(
+          'https://mocki.io/v1/40e08d2b-6fc1-43e2-bbcf-eb5a09115f06'
+        )
+        console.log(res)
+        this.data = res.data
+        this.orderData = [...this.data]
+        console.log(this.data)
+      } catch (error) {
+        console.log('error: ', error)
+      }
+    },
+    getOrderNum () {
+      // 新增訂購名單 新增訂單編號
+      this.orderData.push({
+        name: this.name,
+        city: this.address,
+        num: this.orderNum
+      })
+      this.orderNum++
+    },
+    getColor () {
+      if (typeof document !== 'undefined') {
+        const body = document.getElementsByTagName('body')[0]
+        if (this.$nuxt.$route.name === 'order') {
+          body.classList.add('changeOrderColor')
+        }
+      }
+    },
+    changeType (type) {
+      this.type = type
+      console.log(this.type)
+    },
+    changeValue (value) {
+      if (value.includes('辣')) {
+        this.value2 = value
+      } else if (value.includes('*')) {
+        this.value1 = value
+      } else {
+        this.value3 = value
+      }
+      this.allValue = `${this.value1} , ${this.value2} , ${this.value3}`
+      console.log('value', this.value)
+    }
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+
 *{
   font-size: 20px;
+}
+.changeOrderColor{
+  background-color: $bgColorTwo;
 }
 .container{
   width: 1440px;
@@ -164,7 +216,7 @@ export default {
   background-size: cover;
 }
 .product{
- padding-top: 3px;
+   padding-top: 3px;
 }
 .productCard{
   display: grid;
@@ -181,8 +233,7 @@ export default {
     li {
       margin-top: 5px;
       margin-bottom: 5px;
-       display: flex;
-        justify-content: center;
+      @include center;
         font-weight: 700;
       .strong{
         font-size: 24px;
@@ -195,12 +246,11 @@ export default {
   .productImg{
       width: 200px;
       height: 200px;
-    }
+  }
 }
 .center{
-display: flex;
-justify-content: center;
-font-size: 36px;
+  @include center;
+  font-size: 36px;
 }
 .price{
   display: flex;
@@ -208,13 +258,18 @@ font-size: 36px;
 }
 .number{
   width: 25px;
+}
+li{
+  list-style-type: none;
+}
+.btn-group{
+@include center;
+  .btn{
+    margin: 5px;
+    width: 150px;
+    height: 50px;
+    border-radius: 100px;
   }
- li{
-    list-style-type: none;
-  }
-.taste{
-  display: flex;
-  justify-content: center;
 }
 .orderList{
   margin-left: 100px;
@@ -226,8 +281,7 @@ font-size: 36px;
   justify-content: space-evenly;
   padding: 20px;
   background-image: url(@/assets/background02.jpg);
-  background-size: cover;
-  background-position: center;
+  @include ImgCoverCenter;
   color:white;
   .personal .btn{
     text-align: right;
@@ -235,12 +289,26 @@ font-size: 36px;
   }
 }
 .customer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    ul{
-      margin-left: 50px;
+@include center;
+  flex-direction: column;
+  align-items: center;
+  ul{
+    margin-left: 50px;
+  }
+}
+.info{
+  ul{
+    padding-left: 0px;
+    padding-right: 65px;
+    li{
+      margin-top: 8px;
+      margin-bottom: 8px;
+      list-style-type: none;
+      strong{
+        font-size: 24px;
+        margin-left: 5px;
+      }
     }
-    }
+  }
+}
 </style>

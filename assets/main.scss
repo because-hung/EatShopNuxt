@@ -1,0 +1,13 @@
+
+$bgColorOne: #FF5151;
+$bgColorTwo: #0cc;
+
+@mixin center {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin ImgCoverCenter {
+  background-size: cover;
+  background-position: center;
+}
