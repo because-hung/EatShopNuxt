@@ -25,7 +25,7 @@
 <script>
 export default {
   name: 'IndexPage',
-  head () {
+  head () { // 設定頁面 title description
     return {
       title: this.title,
       meta: [

@@ -24,7 +24,7 @@ export default {
     }
   },
   methods: {
-    changeValue (value) {
+    changeValue (value) { // emit 傳值
       this.$emit('changeValue', value)
     }
   }

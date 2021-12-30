@@ -138,7 +138,7 @@ export default {
       ]
     }
   },
-  head () {
+  head () { // 設定頁面 title description
     return {
       title: this.title,
       meta: [
@@ -150,7 +150,7 @@ export default {
       ]
     }
   },
-  computed: {
+  computed: { // 計算商品總價格
     total () {
       let sum = 0
       for (const i in this.food) {
@@ -166,7 +166,7 @@ export default {
     this.getColor()
   },
   methods: {
-    async getData () {
+    async getData () { // 串接 fake api
       try {
         const res = await this.$axios.get(
           'https://mocki.io/v1/40e08d2b-6fc1-43e2-bbcf-eb5a09115f06'
@@ -179,8 +179,7 @@ export default {
         console.log('error: ', error)
       }
     },
-    getOrderNum () {
-      // 新增訂購名單 新增訂單編號
+    getOrderNum () { // 新增訂購名單 新增訂單編號
       this.orderData.push({
         name: this.name,
         city: this.address,
@@ -188,7 +187,7 @@ export default {
       })
       this.orderNum++
     },
-    getColor () {
+    getColor () { // 更換背景顏色
       if (typeof document !== 'undefined') {
         const body = document.getElementsByTagName('body')[0]
         if (this.$nuxt.$route.name === 'order') {
@@ -196,11 +195,11 @@ export default {
         }
       }
     },
-    changeType (type) {
+    changeType (type) { // props 傳 type 值
       this.type = type
       console.log(this.type)
     },
-    changeValue (value) {
+    changeValue (value) { // 抓取 emit 傳上來的值
       if (value.includes('辣')) {
         this.value2 = value
       } else if (value.includes('*')) {

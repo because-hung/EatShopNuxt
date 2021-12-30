@@ -27,7 +27,7 @@ export default {
       spicy: ['不辣', '小辣', '中辣', '大辣']
     }
   },
-  methods: {
+  methods: { // emit 傳值
     changeValue (event) {
       this.$emit('changeValue', event.target.value)
     }

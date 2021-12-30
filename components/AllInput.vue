@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component :is="type" @changeValue="changeValue" />
+    <component :is="type" @changeValue="changeValue" /> <!-- componets 用is 去動態切換 -->
   </div>
 </template>
 <script>
@@ -12,7 +12,7 @@ export default {
     }
   },
   methods: {
-    changeValue (emitValue) {
+    changeValue (emitValue) { // emit 傳值
       console.log('value', emitValue)
       this.$emit('changeValue', emitValue)
     }

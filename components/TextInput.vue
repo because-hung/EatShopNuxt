@@ -17,7 +17,7 @@ export default {
     }
   },
   watch: {
-    txt (txt) {
+    txt (txt) { // 監聽 txt 的變化 emit 傳值
       this.$emit('changeValue', txt)
       console.log(txt)
     }
